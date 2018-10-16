@@ -1,21 +1,32 @@
 import * as React from "react";
 import "./App.css";
+import Map from "./components/Map/Map";
 import Point from "./components/Point/Point";
 
-import logo from "./logo.svg";
+import map from "./berlin_map.png";
 
 class App extends React.Component {
   public render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">
+            Interactive Map Alert System Refurbished v2.0.4
+          </h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <Point x={50} y={60} />
+        <main className="App-main">
+          <div className="App-sidebar">
+            <p className="App-alerts">Alerts</p>
+            <ul>
+              <li>test</li>
+            </ul>
+          </div>
+          <div className="App-content">
+            <Map src={map}>
+              <Point x={50} y={60} />
+            </Map>
+          </div>
+        </main>
       </div>
     );
   }

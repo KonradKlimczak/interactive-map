@@ -11,6 +11,7 @@ class Map extends React.Component<IMap> {
     return (
       <div className="Map">
         <img src={src} className="Map-img" alt="Map" />
+        {this.props.children}
       </div>
     );
   }
