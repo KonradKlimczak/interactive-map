@@ -10,7 +10,14 @@ export interface IIncident {
 }
 
 export async function getIncidents() {
-  return EXAMPLE_RESPONSE;
+  function resolveAfter2Seconds() {
+    return new Promise<IIncident[]>(resolve => {
+      setTimeout(() => {
+        resolve(EXAMPLE_RESPONSE);
+      }, 2000);
+    });
+  }
+  return await resolveAfter2Seconds();
 }
 
 const EXAMPLE_RESPONSE: IIncident[] = [
