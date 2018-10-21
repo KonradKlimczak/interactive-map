@@ -38,7 +38,7 @@ const EXAMPLE_RESPONSE: IIncident[] = [
     point: { x: 13.045512, y: 52.395312 },
     from: "Breite Straße - Feuerbachstraße (Zeppelinstraße/B2)",
     to: "Schopenhauerstraße (Hegelallee/B2)",
-    details: "broken down vehicle",
+    details: "b  roken down vehicle",
     delay: 135,
     magnitude: 1
   },

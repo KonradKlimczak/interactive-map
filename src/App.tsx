@@ -46,7 +46,7 @@ class App extends React.Component<{}, IAppState> {
           </div>
           <div className="App-content">
             <Map src={map}>
-              <Point x={50} y={60} />
+              <React.Fragment>{this.renderPoints()}</React.Fragment>
             </Map>
           </div>
         </main>
@@ -75,6 +75,16 @@ class App extends React.Component<{}, IAppState> {
       default:
         return assertNever(incidents);
     }
+  };
+
+  private renderPoints = () => {
+    const { incidents } = this.state;
+    if (incidents.kind === RemoteDataKind.Success) {
+      return incidents.data.map(incident => (
+        <Point key={incident.id} {...incident.point} />
+      ));
+    }
+    return null;
   };
 }
 

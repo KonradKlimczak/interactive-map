@@ -3,6 +3,6 @@
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background-color: aqua;
-  border: 2px solid aquamarine;
+  background-color: #fff;
+  box-shadow: 0 0 10px #ff1177
 }
