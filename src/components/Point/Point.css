@@ -1,7 +1,7 @@
 .Point {
   position: absolute;
-  width: 5px;
-  height: 5px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background-color: #fff;
   box-shadow: 0 0 10px #ff1177

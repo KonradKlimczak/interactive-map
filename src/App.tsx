@@ -1,9 +1,9 @@
 import * as React from "react";
 import "./App.css";
-import Map from "./components/Map/Map";
-import Point from "./components/Point/Point";
-
 import map from "./berlin_map.png";
+import Map from "./components/Map/Map";
+import Point, { IPointProps } from "./components/Point/Point";
+import { PopoverContent, PopoverWrapper } from "./components/Popover";
 import { getIncidents, IIncident } from "./service/Data/Incident";
 import { RemoteData, RemoteDataKind } from "./service/Data/RemoteData";
 import { assertNever } from "./utils/assertNever";
@@ -80,9 +80,43 @@ class App extends React.Component<{}, IAppState> {
   private renderPoints = () => {
     const { incidents } = this.state;
     if (incidents.kind === RemoteDataKind.Success) {
-      return incidents.data.map(incident => (
-        <Point key={incident.id} {...incident.point} />
-      ));
+      return incidents.data
+        .reduce(
+          (
+            uniqPoints: Array<{ point: IPointProps; incidents: IIncident[] }>,
+            incident: IIncident
+          ) => {
+            const incitendsWithTheSamePoint = uniqPoints.find(
+              uniqPoint =>
+                uniqPoint.point.x === incident.point.x &&
+                uniqPoint.point.y === incident.point.y
+            );
+            if (incitendsWithTheSamePoint) {
+              return [
+                ...uniqPoints.filter(
+                  uniqPoint => uniqPoint !== incitendsWithTheSamePoint
+                ),
+                {
+                  point: incitendsWithTheSamePoint.point,
+                  incidents: [...incitendsWithTheSamePoint.incidents, incident]
+                }
+              ];
+            }
+            return [
+              ...uniqPoints,
+              { point: incident.point, incidents: [incident] }
+            ];
+          },
+          []
+        )
+        .map((uniqPointIncidents, index) => (
+          <PopoverWrapper>
+            <Point key={index} {...uniqPointIncidents.point} />
+            <PopoverContent title="And here, that's what happened:">
+              uniqPointIncidents {uniqPointIncidents.incidents.length}
+            </PopoverContent>
+          </PopoverWrapper>
+        ));
     }
     return null;
   };
