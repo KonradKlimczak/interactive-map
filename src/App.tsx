@@ -3,7 +3,7 @@ import "./App.css";
 import map from "./berlin_map.png";
 import Map from "./components/Map/Map";
 import Point, { IPointProps } from "./components/Point/Point";
-import { PopoverContent, PopoverWrapper } from "./components/Popover";
+import { Popover, PopoverContent } from "./components/Popover";
 import { getIncidents, IIncident } from "./service/Data/Incident";
 import { RemoteData, RemoteDataKind } from "./service/Data/RemoteData";
 import { assertNever } from "./utils/assertNever";
@@ -110,12 +110,12 @@ class App extends React.Component<{}, IAppState> {
           []
         )
         .map((uniqPointIncidents, index) => (
-          <PopoverWrapper>
+          <Popover>
             <Point key={index} {...uniqPointIncidents.point} />
             <PopoverContent title="And here, that's what happened:">
               uniqPointIncidents {uniqPointIncidents.incidents.length}
             </PopoverContent>
-          </PopoverWrapper>
+          </Popover>
         ));
     }
     return null;
